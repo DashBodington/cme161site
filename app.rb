@@ -1,8 +1,12 @@
 # app.rb
 require 'sinatra'
+# require 'sinatra/reloader'
+
+# enable static files to be served outside of .public/ folder
+set :public_folder, 'app'
 
 get '/' do
-  "Hello World!"
+  File.read(File.join('app','index.html'))
 end
 
 # # CRUD routes
