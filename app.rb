@@ -1,12 +1,16 @@
 # app.rb
 require 'sinatra'
-# require 'sinatra/reloader'
 
 # enable static files to be served outside of .public/ folder
 set :public_folder, 'app'
 
+# enable this site to be embedded as an iframe
+configure do
+    set :protection, except: [:frame_options]
+end
+
 get '/' do
-  File.read(File.join('app','index.html'))
+  File.read('app/index.html')
 end
 
 # # CRUD routes
