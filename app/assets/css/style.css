@@ -39,21 +39,13 @@ body {
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
-#bg_viz{
-  position:fixed; 
-  margin-top:50px;
-  right:0;
-  z-index: -1000;
-/*  height: 700px;
-  width: 1440px; */
-}
 
 #wrap > .container {
   padding: 0px 15px 0;
 }
 .container .credit {
   margin: 20px 0;
-  font-size: 8px;
+  font-size: 10px;
 }
 
 #footer > .container {
@@ -61,95 +53,3 @@ body {
   padding-right: 15px;
 }
 
-code {
-  font-size: 80%;
-}
-
-.old_news{
-	color:#999;
-}
-
-.instructor_name{
-  color:#777;
-}
-
-.node {
-  stroke: #fff;
-  stroke-width: 1.5px;
-}
-
-.link {
-  stroke: #999;
-  stroke-opacity: .6;
-}
-
-/*#viz {
-  margin-top:-170px; 
-  margin-right:130px; 
-  overflow: visible;
-  height: 120px;
-  z-index: 10000;
-}
-*/
-
-
-
-
-@media (min-width: 00px) {
-
-  #viz {
-    margin-top:-250px; 
-    margin-right:-150px; 
-    overflow: visible;
-    height: 120px;
-    z-index: 10000;
-  }
-}
-
-@media (max-width: 400px) {
-
-  h1{
-    margin-top: -30px;
-  }
-
-  small{
-    float:left;
-  }
-}
-
-
-@media (min-width: 768px) {
-
-  #viz {
-    margin-top:-200px; 
-    margin-right:-60px; 
-    overflow: visible;
-    height: 120px;
-    z-index: 10000;
-  }
-}
-
-/* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) { 
-  #viz {
-    margin-top:-170px; 
-    margin-right:-20px; 
-    overflow: visible;
-    height: 120px;
-    z-index: 10000;
-  }
-
-}
-
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) { 
-
-  #viz {
-    margin-top:-170px; 
-    margin-right:140px; 
-    overflow: visible;
-    height: 120px;
-    z-index: 10000;
-  }
-
-}

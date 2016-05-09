@@ -1,1 +1,1 @@
-web: bundle exec ruby app.rb -p $PORT
+web: python flask_front_end_app.py
