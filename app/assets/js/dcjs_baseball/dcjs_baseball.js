@@ -7,7 +7,7 @@ var hist = function(data_in, chart_id, value, chart_title) {
       "bottom": 50,
       "left": 30
     },
-    width = 600 - margin.left - margin.right,
+    width = 1000 - margin.left - margin.right,
     height = 250 - margin.top - margin.bottom;
 
   var x = d3.scale.linear()
