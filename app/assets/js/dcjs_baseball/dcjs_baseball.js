@@ -285,7 +285,7 @@ d3.json("https://tranquil-peak-82564.herokuapp.com/api/v1.0/data/baseball/limit/
       dim_player.filterAll()
       
       temp = dim_player.bottom(e)
-      console.log(temp[0])
+
       // filter based on the UI element
       dim_player.filter([temp[0].player_id, temp[temp.length-1].player_id]);
       
