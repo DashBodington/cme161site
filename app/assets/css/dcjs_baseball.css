@@ -1,23 +1,9 @@
 body {
   font: 10px sans-serif;
 }
-	
-.slider-handle{
-  background:Navy;
-  opacity: 0.75
-}
-
-.slider-selection{
-  background: MediumTurquoise;
-}
-
-.slider-track{
-  background: tomato;
-}
-
 
 .bar rect {
-  fill: MediumTurquoise ;
+  fill: steelblue;
   shape-rendering: crispEdges;
 }
 
