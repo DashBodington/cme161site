@@ -26,7 +26,7 @@ data is in this format
 // } end load data
 
 
-d3.json("http://tranquil-peak-82564.herokuapp.com/api/v1.0/data/iris/", function(remote_json){
+d3.json("https://tranquil-peak-82564.herokuapp.com/api/v1.0/data/iris/", function(remote_json){
 	
   window.remote_json = remote_json;
   
