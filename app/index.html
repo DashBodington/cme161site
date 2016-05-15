@@ -15,11 +15,15 @@
         <!-- dc_iris -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.5/dc.css" rel="stylesheet">
 
+		<!-- cycling-->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css" rel="stylesheet">
+
+
 		<!-- custom stuff -->
         <link href="assets/css/dcjs_baseball/dcjs_baseball.css" rel="stylesheet">
         <link href="assets/css/dc_iris/dc_iris.css" rel="stylesheet">
         <link href="assets/css/d3_donut/d3_donut.css" rel="stylesheet">
-
+		<!--<link href="assets/css/c3_cycling/c3_cycling.css" rel="stylesheet">-->
 </head>
 <body>
 	<!-- begin wrap -->		
@@ -136,7 +140,7 @@
 					<!-- begin viz 3 -->
 					<div class=".col-xs-12 .col-md-8">
 						<h3>
-							Visualization Donut Parameters with C3
+							Visualizing Donut Parameters with C3
 						</h3>
 
 						<p>
@@ -168,7 +172,19 @@
 						<hr>
 						
 						<div id="cycling_story">
-
+							<div class="container-fluid" style="margin-top:10px;">
+							  <div class="row">
+							    <div class="col-md-8">
+							      <div id="cycling_chart"></div>
+							    </div>
+							    <div class="col-md-4 well pull-right">
+							      <h2>Doping in Professional Cycling</h2>
+							      <hr>
+							      <p id="message"></p>
+							      <button id="start_btn" class="btn btn-primary pull-right">Start</button>
+							    </div>
+							  </div>
+							</div>
 
 						</div>
 						
@@ -209,10 +225,15 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.1/dc.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/7.0.2/bootstrap-slider.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/dc/1.7.5/dc.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
 
+	<!-- my stuff -->
     <script src='assets/js/dcjs_baseball/dcjs_baseball.js'></script>
     <script src='assets/js/dc_iris/dc_iris.js'></script>
     <script src='assets/js/d3_donut/d3_donut.js'></script>
+    <script src='assets/js/c3_cycling/c3_cycling.js'></script>
+
 
 </body>
 </html>
