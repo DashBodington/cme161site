@@ -19,10 +19,10 @@ var hist = function(data_in, chart_id, value, chart_title) {
       return d.value[value];
     })])
     .range([height, 0]);
-	
+  
   d3.select("#" + chart_id).remove();
   
-  var div = d3.select("#dcjs_baseball_container").append("div").attr("id", chart_id);
+  var div = d3.select("body").append("div").attr("id", chart_id);
   
   div.append("h2").text(chart_title);
   
@@ -56,7 +56,7 @@ var hist = function(data_in, chart_id, value, chart_title) {
     .attr("x", (width / data_in.length - 1) / 2)
     .attr("text-anchor", "middle")
     .text(function(d) {
-      return formatCount(d.value.count);
+      return formatCount(d.value[value]);
     });
 
   var unique_names = data_in.map(function(d) {
@@ -95,38 +95,35 @@ var hist = function(data_in, chart_id, value, chart_title) {
     .attr("font-size", 10);
 }
 
-d3.json("https://tranquil-peak-82564.herokuapp.com/api/v1.0/data/baseball/limit/100/",
+d3.json("https://tranquil-peak-82564.herokuapp.com/api/v1.0/data/baseball/limit/200/",
   function(error, games_json) {
 
     var cf = crossfilter(games_json);
     var dim_team = cf.dimension(function(d) { return d.team_id; });
+    var dim_team2 = cf.dimension(function(d) { return d.team_id; });
     var dim_ngames = cf.dimension(function(d){ return d.g_all; });
     var dim_player = cf.dimension(function(d){return d.player_id;});
+    var dim_player2 = cf.dimension(function(d){return d.player_id;});
     var dim_year = cf.dimension(function(d){return d.year;});
     var dim_year2 = cf.dimension(function(d){return d.year;});
     /* add more dimensions here */
     
     var group_team = dim_team.group();
+    var group_team2 = dim_team2.group();
     var group_year = dim_year.group();
     var group_year2 = dim_year2.group();
     var group_ngames = dim_ngames.group();
     var group_player = dim_player.group();
+    var group_player2 = dim_player2.group();
     /* add more groups here */
      
     /* 
-    // sanity check
-    
-    group_team
-      .top(Infinity)
-      .forEach(function(d, i) {
-        console.log(JSON.stringify(d));
-      });
-      
+
     */
     
     /* --------------------------------------------------------- 
     
-    	Add a third and 4th variable to this map reduction
+      Add a third and 4th variable to this map reduction
       - the third should be the minimum year
       - the fourth should be the maximum year
       - hint: use inequalities
@@ -140,7 +137,11 @@ d3.json("https://tranquil-peak-82564.herokuapp.com/api/v1.0/data/baseball/limit/
         "min_year": 0,
         "max_year": 0,
         "num_years": 0,
-        "all_years": []
+        "num_teams": 0,
+        "num_players": 0,
+        "all_years": [],
+        "all_teams": new Set(),
+        "all_players": new Set()
       };
     }
 
@@ -149,8 +150,12 @@ d3.json("https://tranquil-peak-82564.herokuapp.com/api/v1.0/data/baseball/limit/
       p.total += v.g_all;
       if(p.max_year < v.year){ p.max_year = v.year; }
       if(p.min_year < v.year){ p.min_year = v.year; }
-  		p.all_years.push(v.year); // store an array
+      p.all_years.push(v.year); // store an array
       p.num_years = p.all_years.length;
+      p.all_teams.add(v.team_id);
+      p.all_players.add(v.player_id);
+      p.num_teams = p.all_teams.size;
+      p.num_players = p.all_players.size;
       return p;
     }
 
@@ -158,40 +163,50 @@ d3.json("https://tranquil-peak-82564.herokuapp.com/api/v1.0/data/baseball/limit/
       --p.count;
       p.total -= v.g_all;
       p.all_years.splice(p.all_years.indexOf(v.year), 1);
+      p.all_teams.delete(v.team_id);
+      p.all_players.delete(v.player_id);
       p.max_year = Math.max.apply(null, p.all_years);
       p.min_year = Math.min.apply(null, p.all_years);
       p.num_years = p.all_years.length;
+      p.num_teams = p.all_teams.size;
+      p.num_players = p.all_players.size;
       return p;
     }
     
     /* --------------------------------------------------------- */
     
     
-    group_team.reduce(reduce_add, reduce_remove, reduce_init);
+    group_team2.reduce(reduce_add, reduce_remove, reduce_init);
     group_year2.reduce(reduce_add, reduce_remove, reduce_init);
-    group_player.reduce(reduce_add, reduce_remove, reduce_init);
-  	/* reduce the more groups here */
+    group_player2.reduce(reduce_add, reduce_remove, reduce_init);
+    /* reduce the more groups here */
     
     var render_plots = function(){
       // count refers to a specific key specified in reduce_init 
       // and updated in reduce_add and reduce_subtract
       // Modify this for the chart to plot the specified variable on the y-axis
-      hist(group_team.top(Infinity), 
-      	"appearances_by_team", 
+      hist(group_team2.top(Infinity), 
+        "appearances_by_team", 
         "count", 
         "# of Appearances by Team"
       );
       
       hist(group_year2.top(Infinity), 
-      	"appearances_by_year", 
-        "count", 
-        "# of Appearances by Year"
+        "appearances_by_year", 
+        "num_players", 
+        "# Players Represented by Year"
       );
       
-      hist(group_team.top(Infinity), 
-      	"years_by_team", 
+      hist(group_year2.top(Infinity), 
+        "teams_by_year", 
+        "num_teams", 
+        "# Teams Represented by Year"
+      );
+      
+      hist(group_player2.top(Infinity), 
+        "teams_per_player", 
         "num_years", 
-        "# Years by Team"
+        "# Teams Represented per Player"
       );
       /* build more charts here */
       
@@ -218,6 +233,24 @@ d3.json("https://tranquil-peak-82564.herokuapp.com/api/v1.0/data/baseball/limit/
         "range": true,
         "value": [1870, 1910]
       });
+      
+      var players_slider = new Slider(
+      "#players_slider", {
+        "id": "players_slider",
+        "min": 1,
+        "max": 200,
+        "focus": true,
+        "value": 100
+      });
+      
+      var teams_slider = new Slider(
+      "#teams_slider", {
+        "id": "teams_slider",
+        "min": 1,
+        "max": 200,
+        "focus": true,
+        "value": 100
+      });
     
     /* add at least 3 more sliders here */
    
@@ -228,12 +261,8 @@ d3.json("https://tranquil-peak-82564.herokuapp.com/api/v1.0/data/baseball/limit/
       // filter based on the UI element
       dim_ngames.filter(e);
       
-   		// re-render
+      // re-render
       render_plots(); 
-       
-     /* update the other charts here 
-      hint: each one of your event handlers needs to update all of the charts
-     */
        
     });
     
@@ -243,19 +272,53 @@ d3.json("https://tranquil-peak-82564.herokuapp.com/api/v1.0/data/baseball/limit/
       // filter based on the UI element
       dim_year.filter(e);
       
-   		// re-render
+      // re-render
       render_plots(); 
-       
-     /* update the other charts here 
-      hint: each one of your event handlers needs to update all of the charts
-     */
        
     });
     
     
-     /* add at least 3 more event handlers here */
-     
-     
+//Display a fixed number of teams and players
+      players_slider.on("slide", function(e) {
+      d3.select("#players_slider_txt").text(e);
+      
+      dim_player.filterAll()
+      
+      temp = dim_player.bottom(e)
+      console.log(temp[0])
+      // filter based on the UI element
+      dim_player.filter([temp[0].player_id, temp[temp.length-1].player_id]);
+      
+      //Re-calculate
+      group_team2.reduce(reduce_add, reduce_remove, reduce_init);
+      group_year2.reduce(reduce_add, reduce_remove, reduce_init);
+      group_player2.reduce(reduce_add, reduce_remove, reduce_init);
+      
+      // re-render
+      render_plots(); 
+       
+    });
+    
+      teams_slider.on("slide", function(e) {
+      d3.select("#teams_slider_txt").text(e);
+      
+      dim_team.filterAll()
+      
+      temp = dim_team.bottom(e)
+      console.log(temp[0])
+      // filter based on the UI element
+      dim_team.filter([temp[0].team_id, temp[temp.length-1].team_id]);
+      
+      //Re-calculate
+      group_team2.reduce(reduce_add, reduce_remove, reduce_init);
+      group_year2.reduce(reduce_add, reduce_remove, reduce_init);
+      group_player2.reduce(reduce_add, reduce_remove, reduce_init);
+      
+      // re-render
+      render_plots(); 
+       
+    });
+    
      /* --------------------------------------------------------- */
      
      
