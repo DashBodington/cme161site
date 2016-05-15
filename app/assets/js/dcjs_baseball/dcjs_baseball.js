@@ -177,13 +177,13 @@ d3.json("https://tranquil-peak-82564.herokuapp.com/api/v1.0/data/baseball/limit/
       // and updated in reduce_add and reduce_subtract
       // Modify this for the chart to plot the specified variable on the y-axis
       hist(group_team.top(Infinity), 
-      	"#appearances_by_team", 
+      	"appearances_by_team", 
         "count", 
         "# of Appearances by Team"
       );
       
       hist(group_year2.top(Infinity), 
-      	"#appearances_by_year", 
+      	"appearances_by_year", 
         "count", 
         "# of Appearances by Year"
       );
