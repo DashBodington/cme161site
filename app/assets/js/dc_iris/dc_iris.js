@@ -61,7 +61,7 @@ d3.json("https://tranquil-peak-82564.herokuapp.com/api/v1.0/data/iris/", functio
  
   var sepal_length_chart = dc
     .barChart("#sepal_length_chart")
-    .width(250)
+    .width(200)
     .height(200)
     .brushOn(true)
     .dimension(sepal_length)
@@ -72,14 +72,14 @@ d3.json("https://tranquil-peak-82564.herokuapp.com/api/v1.0/data/iris/", functio
   
   var species_chart = dc
     .pieChart("#species_chart")
-    .width(250)
+    .width(200)
     .height(200)
     .dimension(species)
     .group(species_sum)
   
    var sepal_width_chart = dc
     .barChart("#sepal_width_chart")
-    .width(250)
+    .width(200)
     .height(200)
     .dimension(sepal_width)
     .group(sepal_width_sum)
@@ -89,7 +89,7 @@ d3.json("https://tranquil-peak-82564.herokuapp.com/api/v1.0/data/iris/", functio
   
   var petal_width_chart = dc
     .barChart("#petal_width_chart")
-    .width(250)
+    .width(200)
     .height(200)
     .dimension(petal_width)
     .group(petal_width_sum)
@@ -99,7 +99,7 @@ d3.json("https://tranquil-peak-82564.herokuapp.com/api/v1.0/data/iris/", functio
   
    var petal_length_chart = dc
     .barChart("#petal_length_chart")
-    .width(250)
+    .width(200)
     .height(200)
     .dimension(petal_length)
     .group(petal_length_sum)
