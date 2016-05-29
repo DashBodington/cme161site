@@ -6,9 +6,10 @@ app = Flask(__name__, static_url_path='')
 @app.route("/")
 def index():
     return app.make_response(open('app/index.html').read())
-# get root
+
+# get project
 @app.route("/project")
-def index():
+def project():
     return app.make_response(open('app/project.html').read())
 
 # send assets (ex. assets/js/random_triangle_meshes/random_triangle_meshes.js)
