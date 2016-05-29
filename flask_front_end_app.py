@@ -6,6 +6,10 @@ app = Flask(__name__, static_url_path='')
 @app.route("/")
 def index():
     return app.make_response(open('app/index.html').read())
+# get root
+@app.route("/project")
+def index():
+    return app.make_response(open('app/project.html').read())
 
 # send assets (ex. assets/js/random_triangle_meshes/random_triangle_meshes.js)
 # blocks other requests, so your directories won't get listed (ex. assets/js will return "not found")
