@@ -138,7 +138,7 @@ $.ajax({
     }
     remote_json = allData;
 
-    console.log(allData.toString())
+    //console.log(allData.toString())
 
     window.remote_json = remote_json;
 
@@ -560,17 +560,17 @@ $.ajax({
     var dimStats = function(data_in, name, prec) {
       return [d3.min(data_in, function(d) {
         return d[name];
-      }).toPrecision(prec), d3.max(data_in, function(d) {
+      }), d3.max(data_in, function(d) {
         return d[name];
-      }).toPrecision(prec), d3.mean(data_in, function(d) {
+      }), d3.mean(data_in, function(d) {
         return d[name];
-      }).toPrecision(prec)];
+      })];
     }
 
     var distStats = function(data_in, name, prec) {
       return d3.sum(data_in, function(d) {
         return d[name];
-      }).toPrecision(prec);
+      });
     }
 
 //Keep the custom plots and metrics updated with the dc-filtered crossfilter
@@ -580,16 +580,16 @@ $.ajax({
       );
 
       var sts = distStats(speed.top(Infinity), "velocity_smooth", 3)
-      d3.select("#dist_txt").text(sts / 1000);
+      d3.select("#dist_txt").text((sts / 1000).toFixed(2));
       //d3.select("#dist_txt").text(dist.top(Infinity).length/100);
       var sts = dimStats(temp.top(Infinity), "temp", 3)
-      d3.select("#temp_txt").text(sts[0])
+      d3.select("#temp_txt").text(sts[0].toFixed(1))
       var sts = dimStats(watts.top(Infinity), "watts", 3)
-      d3.select("#power_txt").text("avg: " + sts[2] + ", min: " + sts[0] + ", max: " + sts[1]);
+      d3.select("#power_txt").text("avg: " + sts[2].toFixed(0) + ", min: " + sts[0].toFixed(0) + ", max: " + sts[1].toFixed(0));
       var sts = dimStats(speed.top(Infinity), "velocity_smooth", 3)
-      d3.select("#speed_txt").text("avg: " + sts[2] + ", min: " + sts[0] + ", max: " + sts[1]);
+      d3.select("#speed_txt").text("avg: " + sts[2].toFixed(1) + ", min: " + sts[0].toFixed(1) + ", max: " + sts[1].toFixed(1));
       var sts = dimStats(cadence.top(Infinity), "cadence", 3)
-      d3.select("#cadence_txt").text("avg: " + sts[2] + ", min: " + sts[0] + ", max: " + sts[1]);
+      d3.select("#cadence_txt").text("avg: " + sts[2].toFixed(0) + ", min: " + sts[0].toFixed(0) + ", max: " + sts[1].toFixed(0));
     }
 
 //Provide reset button
