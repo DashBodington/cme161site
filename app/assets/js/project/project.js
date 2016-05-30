@@ -1,12 +1,11 @@
 //Colors for plots
 //var zoneColor = d3.scale.ordinal().range(["#99ff33", "#ffff66", "#ff9933", "#ff5050", "#ff3399", "#ff00ff"]).domain([1, 2, 3, 4, 5, 6, 7]);
 var zoneColor = d3.scale.ordinal().range(["#99DA58", "#F0F075", "#E6994D", "#E96767", "#E64D99", "#DF20DF"]).domain([1, 2, 3, 4, 5, 6, 7]);
-https: //jsfiddle.net/DashBodington/4kaa3Lwc/136/#
-  var gradeColor = d3.scale.ordinal().range(["MediumSeaGreen", "CornFlowerBlue", "Tomato"]).domain([-1, 0, 1]);
+var gradeColor = d3.scale.ordinal().range(["MediumSeaGreen", "CornFlowerBlue", "Tomato"]).domain([-1, 0, 1]);
 var movingColor = d3.scale.ordinal().range(["#608FBE", "DodgerBlue"]).domain([1, -1]);
 var pedalColor = d3.scale.ordinal().range(["#BF6240", "OrangeRed"]).domain([1, -1]);
 
-
+//Custom scatter function to trace the outline of the ride
 var scatter = function(data_in, chart_id) {
 
   var margin = {
@@ -34,6 +33,7 @@ var scatter = function(data_in, chart_id) {
     })])
     .range([height, 0]);
 
+//size scale, changes slightly with speed
   var s = d3.scale.linear()
     .domain([d3.min(data_in, function(d) {
       return d.value.meanV;
@@ -50,6 +50,8 @@ var scatter = function(data_in, chart_id) {
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g");
+
+  //Add colored background
   /*
     svg.append("rect")
       .attr("width", "100%")
@@ -67,6 +69,7 @@ var scatter = function(data_in, chart_id) {
       return "translate(" + (x(d.value.meanLn) + margin.left) + "," + (y(d.value.meanLt) + margin.top) + ")";
     });
 
+//Add visual elements
   dot.append("circle")
     .attr("r", function(d) {
       if (d.value.count > 0) {
@@ -86,7 +89,7 @@ var scatter = function(data_in, chart_id) {
 }
 
     ////////////////////////////////////////////////////////////////
-    //Hack to get brushing on a composite graph
+    //Hack to get brushing to work on a composite graph, these features are still in beta
     var compositeChart = dc.compositeChart;
     dc.compositeChart = function(parent, chartGroup) {
       var _chart = compositeChart(parent, chartGroup);
@@ -111,15 +114,12 @@ var scatter = function(data_in, chart_id) {
       return _chart;
     };
 
-
     ////////////////////////////////////////////////////////////////
 
 $.ajax({
   url: "https://www.strava.com/api/v3/activities/472785360/streams/time,latlng,distance,altitude,velocity_smooth,heartrate,cadence,watts,temp,moving,grade_smooth?access_token=85f8d96cace55790535a16d2a9c987202b219574&callback=?",
   dataType: 'jsonp',
   success: function(remote_json) {
-
-
 
     //Reformat data for crossfilter
     var allData = []
@@ -142,10 +142,12 @@ $.ajax({
 
     window.remote_json = remote_json;
 
+
+////////////////////////////////////////////////////////////////
     // crossfilter
     var cf = crossfilter(remote_json);
 
-
+    //Convert watts to a power zone
     var powerToZone = function(power) {
       if (power < 0.55 * ftp) {
         return 1;
@@ -164,7 +166,7 @@ $.ajax({
       }
     };
 
-
+////////////////////////////////////////////////////////////////
     // dimensions
     var watts = cf.dimension(function(d) {
       return Math.round(d.watts / 5) * 5
@@ -228,19 +230,19 @@ $.ajax({
     // groups
     //Custom reduce/remove function
     /////////////////////////////////////////////////////////////
-
     var mean_reduce_init = function() {
       return {
-        "count": 0,
-        "meanA": 0,
-        "meanV": 0,
-        "meanC": 0,
-        "meanLt": 0,
-        "meanLn": 0,
+        "count": 0, // count
+        "meanA": 0, //altitude
+        "meanV": 0, //speed
+        "meanP": 0, //POwer
+        "meanC": 0, //cadence
+        "meanLt": 0, //lattitude
+        "meanLn": 0, //longitude
         "totalA": 0,
         "totalV": 0,
         "totalP": 0,
-        "zoneP": 0,
+        "zoneP": 0, //Power zone
         "totalC": 0,
         "totalLt": 0,
         "totalLn": 0,
@@ -301,6 +303,8 @@ $.ajax({
 
     /////////////////////////////////////////////////////////////
 
+    //Properly group dimensions and perform calculations
+
     var grade_sum = grade.group().reduceCount(function(d) {
       return d.grade
     });
@@ -312,7 +316,7 @@ $.ajax({
     var pedal_count = pedal.group().reduceCount();
     var zone_count = zone.group().reduceCount();
 
-    //Real Plots
+    //Standard Plots
     var dist_group = dist.group().reduce(mean_reduce_add, mean_reduce_remove, mean_reduce_init);
     var dist_group2 = dist2.group().reduce(mean_reduce_add, mean_reduce_remove, mean_reduce_init);
     var watts_group = watts.group().reduce(mean_reduce_add, mean_reduce_remove, mean_reduce_init);
@@ -322,6 +326,7 @@ $.ajax({
     //moving.filter(true);
     //
 
+    //Power zones
     var zone_chart = dc
       .pieChart("#zone_chart")
       .width(250)
@@ -331,6 +336,7 @@ $.ajax({
       .innerRadius(40)
       .colors(zoneColor);
 
+      //Uphill, downhill, flat
     var grade_chart = dc
       .pieChart("#grade_chart")
       .width(250)
@@ -349,6 +355,7 @@ $.ajax({
         }
       });
 
+      //moving data (find breaks or stops in ride)
     var moving_chart = dc
       .pieChart("#moving_chart")
       .width(250)
@@ -365,6 +372,7 @@ $.ajax({
         }
       });
 
+      //rider pedalling or coasting
     var pedal_chart = dc
       .pieChart("#pedal_chart")
       .width(250)
@@ -381,6 +389,7 @@ $.ajax({
         }
       });
 
+      //Composite plot with speed, power, elevation
     var composite_profile = dc.compositeChart("#profile_chart")
     composite_profile.width(1000)
       .height(200)
@@ -435,7 +444,7 @@ $.ajax({
         })
       ]);
 
-
+      //Composite plot with power and cadence vs. grade
     var composite_grade = dc.compositeChart("#grade_composite")
     composite_grade.width(500)
       .height(200)
@@ -484,6 +493,7 @@ $.ajax({
         })
       ]);
 
+      //composite plot with time at power and cadence vs. power value
     var composite_power = dc.compositeChart("#power_composite")
     composite_power.width(500)
       .height(200)
@@ -536,6 +546,7 @@ $.ajax({
         .xUnits(dc.units.fp.precision(1))
       ]);
 
+//Functions to perform summary analysis of selected data
     var groupStats = function(data_in, name, prec) {
       return [d3.min(data_in, function(d) {
         return d.value[name];
@@ -562,13 +573,12 @@ $.ajax({
       }).toPrecision(prec);
     }
 
+//Keep the custom plots and metrics updated with the dc-filtered crossfilter
     var render_plots = function() {
       scatter(dist_group2.top(Infinity),
         "map_chart"
       );
 
-      //d3.select("#years_slider_txt").text("min: " + e[0] + ", max: " + e[1]);
-      //
       var sts = distStats(speed.top(Infinity), "velocity_smooth", 3)
       d3.select("#dist_txt").text(sts / 1000);
       //d3.select("#dist_txt").text(dist.top(Infinity).length/100);
@@ -582,7 +592,7 @@ $.ajax({
       d3.select("#cadence_txt").text("avg: " + sts[2] + ", min: " + sts[0] + ", max: " + sts[1]);
     }
 
-
+//Provide reset button
     var showButton = function() {
       if (composite_grade.filters().length > 0 || composite_power.filters().length > 0 || composite_profile.filters().length > 0 || zone_chart.filters().length > 0 ||
         grade_chart.filters().length > 0 ||
@@ -621,6 +631,7 @@ $.ajax({
       render_plots();
     };
 
+//When any dc plot gets filtered, we need to activate the reset button, and update the non-dc visualizations
     composite_grade.on('filtered', function() {
       showButton();
     });
@@ -645,7 +656,7 @@ $.ajax({
 
 
 
-
+    //plot everything for the first time
     render_plots()
     dc.renderAll();
 
