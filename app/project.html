@@ -38,12 +38,36 @@
 					<!-- end header -->
 
 					<!-- begin viz 1 -->
-					<div>
-						<h3>Dashboard for Cycling Data Exploration</h3>
+					<div >
+						<h3>Dashboard for Cycling Data Analysis</h3>
     
+
+							<hr>
+
+						    <p>
+						    	This is a dashboard for ride-data obsessed cyclists to analyze their rides. As an app, this would be connected to a <a href="http://strava.com" target="_blank">Strava</a> account (a social exercise site), so that a user can select any one of his/her rides for analysis. The visualization is currently written to show a specific ride, its creator's ride up Mt. Figueroa (Santa Barbara, CA). 
+								</p>
+								
+								<p>
+						    	This visualization is constructed with <a href="http://square.github.io/crossfilter/" target="_blank">Crossfilter 1.3.12</a>, <a href="https://dc-js.github.io/dc.js/" target="_blank">DC.js 2.0.0-beta.26</a>, and <a href="https://d3js.org/" target="_blank">D3.js 3.5.17</a>. DC is a library build on Crossfilter and D3 to enable straightforward brushing and linking with graphics. Crossfilter is responsible for filtering data, and D3 constructs the interactive graphics, and custom graphics such as the Route Outline.
+
+									<p>
+						    	Power data is emphasized, as this is a key metric of cycling strength, and the combination of interactive figures allows a rider to analyze power in many ways. For non-cyclists, I have provided a list of questions a cyclist might ask, which can be answered with the dashboard
+						    	 <ul>
+								  <li>Where did I take breaks (where was I stationary?) on my ride? Where did I coast on my ride?</li>
+								  <li>What was my average power on the climb from km ~32 to km ~47? What if I exclude the downhill section and all sections in which I wasn't pedalling?</li>
+								  <li>Where on my ride was I in power zone 4?</li>
+								  <li>Where on my ride was I producing > 400 watts?</li>
+								  <li>What is the distribution of my power zones when I am climbing 5-10 percent grades?</li>
+								  <li>How does my cadence change with power and grade in the first half of the ride?</li>
+								</ul> 
+								</p>
+						    </p>
+
+
 						    <hr>
 							<!-- Contains Everything-->
-							<div style=" overflow: auto; white-space: nowrap; border:1px solid black;">
+							<div class="well" style=" overflow: auto; white-space: nowrap; border:1px solid black;">
 								<br>
 							  <!-- Main Plots Section-->
 							  <div style="display: inline-block; ">
@@ -163,7 +187,7 @@
 
 
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
-	<script src='https://rawgit.com/crossfilter/crossfilter/master/crossfilter.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js'></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/dc/2.0.0-beta.26/dc.js'></script>

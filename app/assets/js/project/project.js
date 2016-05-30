@@ -574,9 +574,9 @@ $.ajax({
       //d3.select("#dist_txt").text(dist.top(Infinity).length/100);
       var sts = dimStats(temp.top(Infinity), "temp", 3)
       d3.select("#temp_txt").text(sts[0])
-      var sts = groupStats(dist_group.top(Infinity), "meanP", 3)
+      var sts = dimStats(watts.top(Infinity), "watts", 3)
       d3.select("#power_txt").text("avg: " + sts[2] + ", min: " + sts[0] + ", max: " + sts[1]);
-      var sts = groupStats(dist_group.top(Infinity), "meanV", 3)
+      var sts = dimStats(speed.top(Infinity), "velocity_smooth", 3)
       d3.select("#speed_txt").text("avg: " + sts[2] + ", min: " + sts[0] + ", max: " + sts[1]);
       var sts = dimStats(cadence.top(Infinity), "cadence", 3)
       d3.select("#cadence_txt").text("avg: " + sts[2] + ", min: " + sts[0] + ", max: " + sts[1]);
@@ -595,6 +595,7 @@ $.ajax({
           .attr("class", "btn-btn")
           .append("div")
           .attr("class", "label")
+          .append("text")
           .text(function(d) {
             return "Reset Filters";
           })
@@ -609,6 +610,10 @@ $.ajax({
             dc.redrawAll();
             render_plots();
           })
+
+          d3.select(".btn-btn").select(".label").style('color','black');
+          //console.log(d3.select(".btn-btn").select(".label").style("fill,"black"))
+
       } else {
         d3.select(".btn-btn")
           .remove();
