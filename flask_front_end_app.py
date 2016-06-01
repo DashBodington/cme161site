@@ -14,7 +14,7 @@ def project():
 
    # get boids
 @app.route("/boids")
-def project():
+def boids():
     return app.make_response(open('app/boids.html').read())
 
 # send assets (ex. assets/js/random_triangle_meshes/random_triangle_meshes.js)
