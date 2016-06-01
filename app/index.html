@@ -24,6 +24,22 @@
         <link href="assets/css/dc_iris/dc_iris.css" rel="stylesheet">
         <link href="assets/css/d3_donut/d3_donut.css" rel="stylesheet">
 		<!--<link href="assets/css/c3_cycling/c3_cycling.css" rel="stylesheet">-->
+
+		<!-- Boids, General Utilities (no dependencies) -->
+		<script src="assets/js/boids/libs/ui/dat.gui.min.js"></script>
+		<script src="assets/js/boids/libs/ui/stats.min.js"></script>
+
+		<!-- Renderer -->
+		<script src="assets/js/boids/libs/renderers/three/three.min.js"></script>
+
+		<!-- Renderer Plug-ins (depends on Three.js being loaded first) -->
+		<script src="assets/js/boids/libs/renderers/three/plugins/AxesHelper2.js"></script>
+		<script src="assets/js/boids/libs/renderers/three/plugins/OrbitControls.js"></script>
+		<script src="assets/js/boids/libs/renderers/three/plugins/DeviceOrientationControls.js"></script>
+
+		<!-- Physics (boids) -->
+		<script src="assets/js/boids/libs/maths/vector3.js"></script>
+		<script src="assets/js/boids/libs/physics/boids.js"></script>
 </head>
 <body>
 	<!-- begin wrap -->		
@@ -45,6 +61,32 @@
 						<hr>
 					</div>
 					<!-- end header -->
+
+					<!-- begin viz 0 -->
+					<div class=".col-xs-12 .col-md-8" class="well">
+						<h3>Boids</h3>
+    
+						    <hr>
+
+						    <p>
+						    	A visualization of baseball teams and players represented in the All-Star game using <a href="http://square.github.io/crossfilter/" target="_blank">Crossfilter 1.3.12</a>. Crossfilter allows for fast filtering of data along multiple dimensions, d3 is used to produce plots, and bootstrap for slider functionality.
+						    	<a href="http://www.seanlahman.com/baseball-archive/statistics/" target="_blank">Data from Sean Lahman</a>.
+
+						    </p>
+
+						    <hr>
+
+						    <div id="container">
+								<canvas id="three_boid"></canvas>
+							</div>
+
+    						</div>
+
+    						<hr>
+
+					</div>
+					<!-- end viz 0 -->
+
 
 					<!-- begin viz 1 -->
 					<div class=".col-xs-12 .col-md-8" class="well">
@@ -244,6 +286,11 @@
     <script src='assets/js/dc_iris/dc_iris.js'></script>
     <script src='assets/js/d3_donut/d3_donut.js'></script>
     <script src='assets/js/c3_cycling/c3_cycling.js'></script>
+    <!-- boids -->
+	<script src="assets/js/boids/main/boids_prototypes_for_three.js"></script>
+	<script src="assets/js/boids/main/boids_three.js"></script>
+
+	<!-- End Your JS Files -->
 
 
 </body>
