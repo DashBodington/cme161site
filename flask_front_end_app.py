@@ -32,7 +32,7 @@ if __name__ == "__main__":
 # this is great for developing
 
 
-@app.route('/trellis', methods=['GET'])
+@app.route("/trellis", methods=['GET'])
 def get_trellis():
 	# This method should return the entire data
 	# Replace the following line with your own code
