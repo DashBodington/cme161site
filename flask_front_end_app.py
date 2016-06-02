@@ -67,8 +67,8 @@ def get_graph():
 def get_graph_limit(n_entries):
 	# This method should convert and return only the first 'n_entries' entries
 	# Replace the following line with your own code
-	data = json.load(data_file)[:n_entries]
-	return json.dumps(data)
+	with open('app/assets/data/trellis.json') as data_file:
+		return json.dumps(make_data_graph(json.load(data_file)[:n_entries]))
 
 
 
