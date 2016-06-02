@@ -18,18 +18,10 @@ def project():
 def boids():
     return app.make_response(open('app/boids.html').read())
 
-# send assets (ex. assets/js/random_triangle_meshes/random_triangle_meshes.js)
-# blocks other requests, so your directories won't get listed (ex. assets/js will return "not found")
-@app.route('/assets/<path:path>')
-def send_assets(path):
-    return send_from_directory('app/assets/', path)
 
-if __name__ == "__main__":
-	port = int(os.environ.get("PORT", 5050))
-	app.run(host='0.0.0.0', port=port, debug=False)
 
-# set debug=True if you want to have auto-reload on changes
-# this is great for developing
+
+
 
 
 @app.route("/trellis", methods=['GET'])
@@ -82,3 +74,24 @@ def get_graph_limit(n_entries):
 	# This method should convert and return only the first 'n_entries' entries
 	# Replace the following line with your own code
 	return json.dumps(make_data_graph(json.load(data_file)[:n_entries]))
+
+
+
+# send assets (ex. assets/js/random_triangle_meshes/random_triangle_meshes.js)
+# blocks other requests, so your directories won't get listed (ex. assets/js will return "not found")
+@app.route('/assets/<path:path>')
+def send_assets(path):
+    return send_from_directory('app/assets/', path)
+
+
+
+
+
+if __name__ == "__main__":
+	port = int(os.environ.get("PORT", 5050))
+	app.run(host='0.0.0.0', port=port, debug=False)
+
+# set debug=True if you want to have auto-reload on changes
+# this is great for developing
+
+
