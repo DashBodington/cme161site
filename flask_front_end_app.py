@@ -18,12 +18,6 @@ def project():
 def boids():
     return app.make_response(open('app/boids.html').read())
 
-
-
-
-
-
-
 @app.route("/trellis", methods=['GET'])
 def get_trellis():
 	# This method should return the entire data
@@ -73,7 +67,7 @@ def get_graph():
 def get_graph_limit(n_entries):
 	# This method should convert and return only the first 'n_entries' entries
 	# Replace the following line with your own code
-	return json.dumps(make_data_graph(json.load(data_file)[:n_entries]))
+	return json.dumps(json.dumps(make_data_graph(json.load(data_file)[:n_entries])))
 
 
 
@@ -82,10 +76,6 @@ def get_graph_limit(n_entries):
 @app.route('/assets/<path:path>')
 def send_assets(path):
     return send_from_directory('app/assets/', path)
-
-
-
-
 
 if __name__ == "__main__":
 	port = int(os.environ.get("PORT", 5050))
