@@ -67,7 +67,8 @@ def get_graph():
 def get_graph_limit(n_entries):
 	# This method should convert and return only the first 'n_entries' entries
 	# Replace the following line with your own code
-	return json.dumps(json.dumps(make_data_graph(json.load(data_file)[:n_entries])))
+	data = json.load(data_file)[:n_entries]
+	return json.dumps(json.dumps(make_data_graph(data)))
 
 
 
