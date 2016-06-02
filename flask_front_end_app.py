@@ -1,4 +1,5 @@
 import os, copy
+import json, collections
 from flask import Flask, jsonify, request, send_from_directory, make_response
 app = Flask(__name__, static_url_path='')
 
@@ -30,7 +31,7 @@ if __name__ == "__main__":
 # set debug=True if you want to have auto-reload on changes
 # this is great for developing
 
-import json, collections
+
 @app.route('/trellis', methods=['GET'])
 def get_trellis():
 	# This method should return the entire data
