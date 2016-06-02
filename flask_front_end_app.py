@@ -19,7 +19,7 @@ def boids():
     return app.make_response(open('app/boids.html').read())
 
 @app.route("/donuts", methods=['GET'])
-def get_trellis():
+def get_donuts():
 	# This method should return the entire data
 	# Replace the following line with your own code
 	with open('app/assets/data/donut.json') as data_file:
