@@ -1,6 +1,6 @@
 
 
-d3.json("limitless-cove-49457.herokuapp.com/donuts",function(data){
+d3.json("http://limitless-cove-49457.herokuapp.com/donuts",function(data){
 
 console.log(data)
 var flare_min = data;
