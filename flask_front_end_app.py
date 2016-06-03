@@ -1,5 +1,5 @@
 import os, copy
-import json, collections
+import json, collections, urllib
 from flask import Flask, jsonify, request, send_from_directory, make_response
 app = Flask(__name__, static_url_path='')
 
@@ -24,6 +24,14 @@ def get_donuts():
 	# Replace the following line with your own code
 	with open('app/assets/data/donut.json') as data_file:
 		return json.dumps(json.load(data_file))
+
+@app.route("/stravadata", methods=['GET'])
+def get_ridedata():
+	# This method should return the entire data
+	# Replace the following line with your own code
+	url = "https://www.strava.com/api/v3/activities/472785360/streams/time,latlng,distance,altitude,velocity_smooth,heartrate,cadence,watts,temp,moving,grade_smooth?access_token=85f8d96cace55790535a16d2a9c987202b219574&callback=?"
+	data = json.load(urllib.urlopen(url))
+	return json.dumps(data)
 
 @app.route("/trellis", methods=['GET'])
 def get_trellis():
