@@ -45,11 +45,11 @@
 							<hr>
 
 						    <p>
-						    	This is a dashboard for ride-data obsessed cyclists to analyze their rides. As an app, this would be connected to a <a href="http://strava.com" target="_blank">Strava</a> account (a social exercise site), so that a user can select any one of his/her rides for analysis. The visualization is currently written to show a specific ride, its creator's ride up Mt. Figueroa (Santa Barbara, CA). 
+						    	This is a dashboard for ride-data obsessed cyclists to analyze their rides. As an app, this would be connected to a <a href="http://strava.com" target="_blank">Strava</a> account (a social exercise site), so that a user can select any one of his/her rides for analysis. The visualization is currently written to show a specific ride, its creator's ride up Mt. Figueroa (Santa Barbara, CA). The cycling computer collecting data was used in conjunction with a power meter, so that GPS, barometric, power, cadence (pedal revolutions per minute), and temperature data were collected. GPS data is used to calculate speeds and positions, and the barometer allows for altitude estimation.
 								</p>
 								
 								<p>
-						    	This visualization is constructed with <a href="http://square.github.io/crossfilter/" target="_blank">Crossfilter 1.3.12</a>, <a href="https://dc-js.github.io/dc.js/" target="_blank">DC.js 2.0.0-beta.26</a>, and <a href="https://d3js.org/" target="_blank">D3.js 3.5.17</a>. DC is a library build on Crossfilter and D3 to enable straightforward brushing and linking with graphics. Crossfilter is responsible for filtering data, and D3 constructs the interactive graphics, and custom graphics such as the Route Outline.
+						    	This visualization is constructed with <a href="http://square.github.io/crossfilter/" target="_blank">Crossfilter 1.3.12</a>, <a href="https://dc-js.github.io/dc.js/" target="_blank">DC.js 2.0.0-beta.26</a>, and <a href="https://d3js.org/" target="_blank">D3.js 3.5.17</a>. DC is a library build on Crossfilter and D3 to enable straightforward brushing and linking with graphics. The beta version of DC is necessary to produce many of the features of the composite plots below. Crossfilter is responsible for filtering data, and D3 constructs the interactive graphics, and custom graphics such as the Route Outline.
 
 									<p>
 						    	Power data is emphasized, as this is a key metric of cycling strength, and the combination of interactive figures allow a rider to analyze power in many ways. For non-cyclists, I have provided a list of questions a cyclist might ask, which can be answered with the dashboard

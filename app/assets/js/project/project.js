@@ -117,28 +117,12 @@ var scatter = function(data_in, chart_id) {
     ////////////////////////////////////////////////////////////////
 
 //$.ajax({
-//  url: "https://www.strava.com/api/v3/activities/472785360/streams/time,latlng,distance,altitude,velocity_smooth,heartrate,cadence,watts,temp,moving,grade_smooth?access_token=85f8d96cace55790535a16d2a9c987202b219574&callback=?",
+//  url: "https://www.strava.com/api/v3/activities/472785360/streams/time,latlng,distance,altitude,velocity_smooth,heartrate,cadence,watts,temp,moving,grade_smooth?access_token=<>&callback=?",
 //  dataType: 'jsonp',
 //  success: function(remote_json) {
 d3.json("http://limitless-cove-49457.herokuapp.com/stravadata",function(remote_json){
     //Reformat data for crossfilter
-//    var allData = []
-//      //Collect types
-//    var types = []
-//    for (i = 0; i < remote_json.length; i++) {
-//      types.push(remote_json[i].type);
-//    }
-//    //Create the required array of objects
-//    for (i = 0; i < remote_json[0].data.length; i++) {
-//      vals = []
-//      for (j = 0; j < remote_json.length; j++) {
-//        vals.push(remote_json[j].data[i]);
-//      }
-//      allData.push(_.object(types, vals))
-//    }
-//    remote_json = allData;
-//
-//    //console.log(allData.toString())
+
 
     window.remote_json = remote_json;
 
