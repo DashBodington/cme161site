@@ -1,8 +1,9 @@
 
 var Donuts = function() {
-  this.data = d3.json("limitless-cove-49457.herokuapp.com/donuts",function(datain){
-    return datain;
+  d3.json("limitless-cove-49457.herokuapp.com/donuts",function(data){
+    this.data = data;
   });
+  console.log(this.data)
 };
 
 var flare_min = (new Donuts()).data;
