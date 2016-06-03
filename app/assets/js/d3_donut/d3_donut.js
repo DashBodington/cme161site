@@ -2,7 +2,7 @@
 
 d3.json("https://limitless-cove-49457.herokuapp.com/donuts",function(data){
 
-
+console.log(data)
 var flare_min = data;
 flare_min.children = flare_min.children
 
