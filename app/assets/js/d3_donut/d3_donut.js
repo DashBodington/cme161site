@@ -1,7 +1,7 @@
 
 var Donuts = function() {
   this.data = d3.json("limitless-cove-49457.herokuapp.com/donuts",function(datain){
-    return data;
+    return datain;
   };
 };
 
