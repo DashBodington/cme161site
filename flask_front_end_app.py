@@ -29,9 +29,20 @@ def get_donuts():
 def get_ridedata():
 	# This method should return the entire data
 	# Replace the following line with your own code
-	url = "http://www.strava.com/api/v3/activities/472785360/streams/time,latlng,distance,altitude,velocity_smooth,heartrate,cadence,watts,temp,moving,grade_smooth?access_token=85f8d96cace55790535a16d2a9c987202b219574&callback=?"
-	data = json.load(str(urllib2.urlopen(url).read()))
-	return data
+	url = "https://www.strava.com/api/v3/activities/472785360/streams/time,latlng,distance,altitude,velocity_smooth,heartrate,cadence,watts,temp,moving,grade_smooth?access_token=85f8d96cace55790535a16d2a9c987202b219574&callback"
+	r = requests.get(url)
+	data = r.json() 
+	allData = []
+	#Convert data
+	#For each datapoint
+	for i in xrange(len(data[0]["data"])):
+		row = {}
+		#For each field
+		for j in xrange(len(data)):
+			#print data[j]["data"]
+			row[data[j]["type"]] = data[j]["data"][i]
+		allData.append(row)
+	return json.dumps(allData)
 
 @app.route("/trellis", methods=['GET'])
 def get_trellis():
