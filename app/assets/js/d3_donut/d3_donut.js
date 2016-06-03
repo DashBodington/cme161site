@@ -4,7 +4,7 @@ var Donuts = function() {
     this.data = data;
   });
   console.log(this.data)
-};
+
 
 var flare_min = (new Donuts()).data;
 flare_min.children = flare_min.children
@@ -242,3 +242,4 @@ function click(d) {
   }
   update(d);
 }
+};
