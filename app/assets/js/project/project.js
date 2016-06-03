@@ -660,5 +660,5 @@ d3.json("http://limitless-cove-49457.herokuapp.com/stravadata",function(remote_j
     render_plots()
     dc.renderAll();
 
-  }
+  
 });
