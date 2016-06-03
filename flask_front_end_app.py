@@ -23,7 +23,7 @@ def get_donuts():
 	# This method should return the entire data
 	# Replace the following line with your own code
 	with open('app/assets/data/donut.json') as data_file:
-		return json.dumps(json.load(data_file))
+		return json.load(data_file)
 
 @app.route("/trellis", methods=['GET'])
 def get_trellis():
