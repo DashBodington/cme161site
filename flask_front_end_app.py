@@ -1,5 +1,5 @@
 import os, copy
-import json, collections, urllib2
+import json, collections, requests
 from flask import Flask, jsonify, request, send_from_directory, make_response
 app = Flask(__name__, static_url_path='')
 
